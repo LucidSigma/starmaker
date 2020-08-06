@@ -1,6 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const Schema = mongoose.Schema;
+export interface IPlanetModel extends mongoose.Document {
+	name: string,
+	moonCount?: number,
+	diameter: number,
+	starName: string,
+	distanceFromStar: number,
+}
 
 const planetSchema = new Schema({
 	name: {
@@ -15,16 +21,16 @@ const planetSchema = new Schema({
 	},
 	diameter: {
 		type: Number,
-		required: false,
+		required: true,
 	},
 	starName: {
 		type: String,
-		required: false,
+		required: true,
 	},
 	distanceFromStar: {
 		type: Number,
-		required: false,
+		required: true,
 	},
 });
 
-export default mongoose.model("Planet", planetSchema);
+export default mongoose.model<IPlanetModel>("Planet", planetSchema);

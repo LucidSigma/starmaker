@@ -31,10 +31,9 @@ const starSchema = new Schema({
 	},
 	planets: [
 		{
-			name: {
-				type: String,
-				required: true,
-			},
+			type: String,
+			unique: true,
+			required: true,
 		}
 	],
 });

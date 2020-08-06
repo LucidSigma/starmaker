@@ -38,8 +38,8 @@ connection.once("open", () => {
 });
 
 // CONTROLLERS/ROUTING
-app.use("/planets/", planetController);
 app.use("/stars/", starController);
+app.use("/stars/:star_id/planets/", planetController);
 
 // SERVER CONFIGURATION
 const port = +process.env.PORT || 8080;

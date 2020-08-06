@@ -12,9 +12,7 @@ router.get("/", async (_request, response) => {
 		response.json(stars);
 	}
 	catch (error) {
-		response.status(400).json({
-			error: error,
-		});
+		response.status(400).json(`Could not index stars. Error: ${error}.`);
 	}
 });
 

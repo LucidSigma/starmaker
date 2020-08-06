@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 
 // CONTROLLER IMPORTS
 import planetController from "./controllers/planet.controller";
+import starController from "./controllers/star.controller";
 
 // APP CONFIGURATION
 dotenv.config({
@@ -38,6 +39,7 @@ connection.once("open", () => {
 
 // CONTROLLERS/ROUTING
 app.use("/planets/", planetController);
+app.use("/stars/", starController);
 
 // SERVER CONFIGURATION
 const port = +process.env.PORT || 8080;

@@ -4,11 +4,14 @@ import express from "express";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
 
+// CONTROLLER IMPORTS
+import planetController from "./controllers/planet.controller";
+
+// APP CONFIGURATION
 dotenv.config({
 	path: __dirname + "/../.env",
 });
 
-// APP CONFIGURATION
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -34,7 +37,7 @@ connection.once("open", () => {
 });
 
 // CONTROLLERS/ROUTING
-
+app.use("/planets/", planetController);
 
 // SERVER CONFIGURATION
 const port = +process.env.PORT || 8080;

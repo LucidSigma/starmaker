@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from "react-router-dom";
 
 import StarForm from "../../../components/StarForm/StarForm";
 
-const COLOURS = ["Red", "Red-orange", "Orange", "Orange-yellow", "Yellow", "Yellow-white", "White", "White-blue", "Blue"];
+import Colours, { Colour } from "../../../data/star_colours";
 
 interface MatchParams {
 	star_id: string,
@@ -15,7 +15,7 @@ export interface IEditStarProps extends RouteComponentProps<MatchParams> { }
 export default (props: IEditStarProps) => {
 	const [name, setName] = useState("");
 	const [diameter, setDiameter] = useState(1.0);
-	const [colour, setColour] = useState(COLOURS[0]);
+	const [colour, setColour] = useState(Colours[0]);
 	const [luminosity, setLuminosity] = useState(1.0);
 
 	const starID = props.match.params.star_id;
@@ -46,7 +46,7 @@ export default (props: IEditStarProps) => {
 	};
 
 	const onChangeColour = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setColour(event.currentTarget.value);
+		setColour(event.currentTarget.value as Colour);
 	};
 
 	const onChangeLuminosity = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,13 +1,13 @@
 import React from "react";
 
-const COLOURS = ["Red", "Red-orange", "Orange", "Orange-yellow", "Yellow", "Yellow-white", "White", "White-blue", "Blue"];
+import Colours, { Colour } from "../../data/star_colours";
 
 export type StarFormProps = {
 	type: "New" | "Edit",
 
 	name: string,
 	diameter: number,
-	colour: string,
+	colour: Colour,
 	luminosity: number,
 
 	onSubmitHandler: (event: React.FormEvent) => void,
@@ -34,7 +34,7 @@ export default (props: StarFormProps) => {
 				<label>Colour: </label>
 				<select value={ props.colour } onChange={ props.onChangeColour }>
 					{
-						COLOURS.map((colour) => {
+						Colours.map((colour) => {
 							return <option key={ colour } value={ colour}>{ colour }</option>
 						})
 					}

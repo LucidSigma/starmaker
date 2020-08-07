@@ -4,14 +4,14 @@ import { RouteComponentProps } from "react-router-dom";
 
 import StarForm from "../../../components/StarForm/StarForm";
 
-const COLOURS = ["Red", "Red-orange", "Orange", "Orange-yellow", "Yellow", "Yellow-white", "White", "White-blue", "Blue"];
+import Colours, { Colour } from "../../../data/star_colours";
 
 export interface INewStarProps extends RouteComponentProps { }
 
 export default (props: INewStarProps) => {
 	const [name, setName] = useState("");
 	const [diameter, setDiameter] = useState(1.0);
-	const [colour, setColour] = useState(COLOURS[0]);
+	const [colour, setColour] = useState(Colours[0]);
 	const [luminosity, setLuminosity] = useState(1.0);
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ export default (props: INewStarProps) => {
 	};
 
 	const onChangeColour = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setColour(event.currentTarget.value);
+		setColour(event.currentTarget.value as Colour);
 	};
 
 	const onChangeLuminosity = (event: React.ChangeEvent<HTMLInputElement>) => {

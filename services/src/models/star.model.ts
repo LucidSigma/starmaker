@@ -12,7 +12,6 @@ const starSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
-		unique: true,
 		trim: true,
 	},
 	diameter: {
@@ -30,7 +29,6 @@ const starSchema = new Schema({
 	planets: [
 		{
 			type: String,
-			unique: true,
 			required: true,
 		}
 	],

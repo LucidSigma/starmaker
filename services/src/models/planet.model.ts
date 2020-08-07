@@ -12,7 +12,6 @@ const planetSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
-		unique: true,
 		trim: true,
 	},
 	moonCount: {

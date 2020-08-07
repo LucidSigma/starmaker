@@ -15,7 +15,7 @@ export default (_props: StarListProps) => {
 	useEffect(() => {
 		(async () => {
 			setLoading(true);
-			
+
 			try {
 				const response = await axios.get("/stars");
 				setStars(response.data);
@@ -30,7 +30,7 @@ export default (_props: StarListProps) => {
 	}, []);
 
 	const starList = stars.map((star) => {
-		return <Link to={ "/stars/" + star._id }>{ star.name }</Link>
+		return <Link key={ star._id } to={ "/stars/" + star._id }>{ star.name }</Link>
 	});
 
 	return (

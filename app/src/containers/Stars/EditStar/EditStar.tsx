@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 
+import StarForm from "../../../components/StarForm/StarForm";
+
 const COLOURS = ["Red", "Red-orange", "Orange", "Orange-yellow", "Yellow", "Yellow-white", "White", "White-blue", "Blue"];
 
 interface MatchParams {
@@ -77,38 +79,19 @@ export default (props: IEditStarProps) => {
 		<div>
 			<h3>Edit Star</h3>
 
-			<form onSubmit={ onSubmitHandler }>
-				<div>
-					<label>Name: </label>
-					<input type="text" required value={ name } onChange={ onChangeName } />
-				</div>
-				
-				<div>
-					<label>Diameter (in Solar radii): </label>
-					<input type="number" step="0.1" value={ diameter } onChange={ onChangeDiameter } />
-				</div>
+			<StarForm
+				type="Edit"
+				name={ name }
+				diameter={ diameter }
+				colour={ colour }
+				luminosity={ luminosity }
+				onSubmitHandler={ onSubmitHandler }
+				onChangeName={ onChangeName }
+				onChangeColour={ onChangeColour }
+				onChangeDiameter={ onChangeDiameter }
+				onChangeLuminosity={ onChangeLuminosity }
+			/>
 
-				<div>
-					<label>Colour: </label>
-					<select value={ colour } onChange={ onChangeColour }>
-						{
-							COLOURS.map((colour) => {
-								return <option key={ colour } value={ colour}>{ colour }</option>
-							})
-						}
-					</select>
-				</div>
-
-				<div>
-					<label>Luminosity (in Solar luminosity): </label>
-					<input type="number" step="0.1" value={ luminosity } onChange={ onChangeLuminosity } />
-				</div>
-				
-				<div>
-					<input type="submit" value="Edit Star" />
-				</div>
-			</form>
-			
 			<Link to="/stars">Return</Link>
 		</div>
 	);

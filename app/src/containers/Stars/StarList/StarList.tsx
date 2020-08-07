@@ -38,6 +38,8 @@ export default (_props: StarListProps) => {
 			<h2>List of Stars</h2>
 			{ loading ? <p>Loading...</p> : starList }
 			<br />
+			<Link to="/stars/new">Create a Star</Link>
+			<br />
 			<Link to="/">Return to Home</Link>
 		</div>
 	);

@@ -1,16 +1,39 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 const COLOURS = ["Red", "Red-orange", "Orange", "Orange-yellow", "Yellow", "Yellow-white", "White", "White-blue", "Blue"];
 
-export interface INewStarProps extends RouteComponentProps { }
+interface MatchParams {
+	star_id: string,
+}
 
-export default (props: INewStarProps) => {
+export interface IEditStarProps extends RouteComponentProps<MatchParams> { }
+
+export default (props: IEditStarProps) => {
 	const [name, setName] = useState("");
 	const [diameter, setDiameter] = useState(1.0);
 	const [colour, setColour] = useState(COLOURS[0]);
 	const [luminosity, setLuminosity] = useState(1.0);
+
+	const starID = props.match.params.star_id;
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const response = await axios.get(`/stars/${starID}`);
+				const star = response.data;
+
+				setName(star.name);
+				setDiameter(star.diameter);
+				setColour(star.colour);
+				setLuminosity(star.luminosity);
+			}
+			catch (error) {
+
+			}
+		})();
+	}, [starID]);
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.currentTarget.value);
@@ -31,7 +54,7 @@ export default (props: INewStarProps) => {
 	const onSubmitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
 
-		const newStar = {
+		const updatedStar = {
 			name,
 			diameter,
 			colour,
@@ -40,19 +63,19 @@ export default (props: INewStarProps) => {
 
 		(async () => {
 			try {
-				await axios.post("/stars", newStar);
+				await axios.put(`/stars/${starID}`, updatedStar);
 			}
 			catch (error) {
 
 			}
 
-			props.history.push("/stars");
+			props.history.push(`/stars/${starID}`);
 		})();
 	};
 
 	return (
 		<div>
-			<h3>Create a New Star</h3>
+			<h3>Edit Star</h3>
 
 			<form onSubmit={ onSubmitHandler }>
 				<div>
@@ -82,7 +105,7 @@ export default (props: INewStarProps) => {
 				</div>
 				
 				<div>
-					<input type="submit" value="Create Star" />
+					<input type="submit" value="Edit Star" />
 				</div>
 			</form>
 		</div>

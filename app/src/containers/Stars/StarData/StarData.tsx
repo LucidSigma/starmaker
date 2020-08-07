@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { RouteComponentProps } from "react-router";
+import { Link, RouteComponentProps } from "react-router-dom";
 
 interface MatchParams {
 	star_id: string,
@@ -18,14 +18,14 @@ export default (props: IStarDataProps) => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	const starId = props.match.params.star_id;
+	const starID = props.match.params.star_id;
 
 	useEffect(() => {
 		(async () => {
 			setLoading(true);
 
 			try {
-				const response = await axios.get(`/stars/${ starId }`);
+				const response = await axios.get(`/stars/${starID}`);
 				const star = response.data;
 
 				setName(star.name);
@@ -42,7 +42,18 @@ export default (props: IStarDataProps) => {
 			
 			setLoading(false);
 		})();
-	}, [starId]);
+	}, [starID]);
+
+	const deleteHandler = () => {
+		(async () => {
+			try {
+
+			}
+			catch (error) {
+				
+			}
+		})();
+	};
 
 	if (loading) {
 		return <p>Loading...</p>;
@@ -55,6 +66,9 @@ export default (props: IStarDataProps) => {
 			<p>{ colour }</p>
 			<p>{ luminosity }</p>
 			<p>{ planets.join(", ") }</p>
+
+			<Link to={ starID + "/edit" }>Edit</Link>
+			<button onClick={ deleteHandler }></button>
 		</div>
 	);
 };

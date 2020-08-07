@@ -47,10 +47,12 @@ export default (props: IStarDataProps) => {
 	const deleteHandler = () => {
 		(async () => {
 			try {
+				await axios.delete(`/stars/${starID}`);
 
+				props.history.push("/stars");
 			}
 			catch (error) {
-				
+
 			}
 		})();
 	};
@@ -68,7 +70,7 @@ export default (props: IStarDataProps) => {
 			<p>{ planets.join(", ") }</p>
 
 			<Link to={ starID + "/edit" }>Edit</Link>
-			<button onClick={ deleteHandler }></button>
+			<button onClick={ deleteHandler }>Delete</button>
 		</div>
 	);
 };

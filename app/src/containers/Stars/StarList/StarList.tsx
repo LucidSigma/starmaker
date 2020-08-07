@@ -37,6 +37,8 @@ export default (_props: StarListProps) => {
 		<div>
 			<h2>List of Stars</h2>
 			{ loading ? <p>Loading...</p> : starList }
+			<br />
+			<Link to="/">Return to Home</Link>
 		</div>
 	);
 };

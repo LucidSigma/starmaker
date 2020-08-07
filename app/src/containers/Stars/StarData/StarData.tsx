@@ -71,6 +71,8 @@ export default (props: IStarDataProps) => {
 
 			<Link to={ starID + "/edit" }>Edit</Link>
 			<button onClick={ deleteHandler }>Delete</button>
+			<br />
+			<Link to="/stars">Return</Link>
 		</div>
 	);
 };

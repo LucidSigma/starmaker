@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 
 const COLOURS = ["Red", "Red-orange", "Orange", "Orange-yellow", "Yellow", "Yellow-white", "White", "White-blue", "Blue"];
 
@@ -108,6 +108,8 @@ export default (props: IEditStarProps) => {
 					<input type="submit" value="Edit Star" />
 				</div>
 			</form>
+			
+			<Link to="/stars">Return</Link>
 		</div>
 	);
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router } from "react-router-dom";
 
 import './App.css';
 
@@ -6,8 +7,10 @@ export type AppProps = { };
 
 export default (_props: AppProps) => {
 	return (
-		<div className="App">
-			<h1>Working.</h1>
-		</div>
+		<Router>
+			<div className="App">
+				
+			</div>
+		</Router>	
 	);
 };

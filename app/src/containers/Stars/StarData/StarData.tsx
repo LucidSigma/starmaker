@@ -2,9 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 
-import Star from "../../../data/star";
-import { start } from "repl";
-
 interface MatchParams {
 	star_id: string,
 }

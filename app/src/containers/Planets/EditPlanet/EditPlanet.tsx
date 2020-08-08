@@ -1,20 +1,41 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 import PlanetForm from "../../../components/PlanetForm/PlanetForm";
 
 interface MatchParams {
 	star_id: string,
+	planet_id: string,
 }
 
-export interface INewPlanetProps extends RouteComponentProps<MatchParams> { }
+export interface IEditPlanetProps extends RouteComponentProps<MatchParams> { }
 
-export default (props: INewPlanetProps) => {
+export default (props: IEditPlanetProps) => {
 	const [name, setName] = useState("");
 	const [moonCount, setMoonCount] = useState(0);
 	const [diameter, setDiameter] = useState(1.0);
 	const [distanceFromStar, setDistanceFromStar] = useState(1.0);
+
+	const starID = props.match.params.star_id;
+	const planetID = props.match.params.planet_id;
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const response = await axios.get(`/stars/${starID}/planets/${planetID}`);
+				const planet = response.data;
+
+				setName(planet.name);
+				setMoonCount(planet.moonCount);
+				setDiameter(planet.diameter);
+				setDistanceFromStar(planet.distanceFromStar);
+			}
+			catch (error) {
+
+			}
+		})();
+	}, [planetID, starID]);
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.currentTarget.value);
@@ -44,22 +65,22 @@ export default (props: INewPlanetProps) => {
 
 		(async () => {
 			try {
-				await axios.post("/stars/" + props.match.params.star_id + "/planets", newPlanet);
+				await axios.put("/stars/" + starID + "/planets/" + planetID, newPlanet);
 			}
 			catch (error) {
 
 			}
 
-			props.history.push("/stars/" + props.match.params.star_id);
+			props.history.push("/stars/" + starID + "/planets/" + planetID);
 		})();
 	};
 
 	return (
 		<div>
-			<h3>Create a New Planet</h3>
+			<h3>Edit Planet</h3>
 
 			<PlanetForm
-				type="New"
+				type="Edit"
 				name={ name }
 				moonCount={ moonCount}
 				diameter={ diameter }
@@ -71,7 +92,7 @@ export default (props: INewPlanetProps) => {
 				onChangeDistanceFromStar={ onChangeDistanceFromStar }
 			/>
 
-			<Link to={ "/stars/" + props.match.params.star_id }>Return</Link>
+			<Link to={ "/stars/" + starID + "/planets" + planetID }>Return</Link>
 		</div>
 	);
 };

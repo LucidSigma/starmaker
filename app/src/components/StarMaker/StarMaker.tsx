@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
+import EditPlanet from "../../containers/Planets/EditPlanet/EditPlanet";
 import EditStar from "../../containers/Stars/EditStar/EditStar";
 import HomePage from "../HomePage/HomePage";
 import NewPlanet from "../../containers/Planets/NewPlanet/NewPlanet";
@@ -21,7 +22,8 @@ export default (_props: StarMakerProps) => {
 				<Route path="/stars" exact component={ StarList } />
 				<Route path="/stars/new" exact component={ NewStar } />
 				<Route path="/stars/:star_id/planets/new" exact component={ NewPlanet } />
-				<Route path="/stars/:star_id/planets/:planet_id"  component={ PlanetData } />
+				<Route path="/stars/:star_id/planets/:planet_id/edit"  component={ EditPlanet } />
+				<Route path="/stars/:star_id/planets/:planet_id" component={ PlanetData } />
 				<Route path="/stars/:star_id/edit" component={ EditStar } />
 				<Route path="/stars/:star_id" component={ StarData } />
 				<Route render={ () => <h1>404 Page.</h1> } /> 

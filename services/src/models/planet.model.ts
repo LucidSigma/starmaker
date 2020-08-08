@@ -4,6 +4,7 @@ export interface IPlanetModel extends mongoose.Document {
 	name: string,
 	moonCount?: number,
 	diameter: number,
+	starID: string,
 	starName: string,
 	distanceFromStar: number,
 }
@@ -20,6 +21,10 @@ const planetSchema = new Schema({
 	},
 	diameter: {
 		type: Number,
+		required: true,
+	},
+	starID: {
+		type: String,
 		required: true,
 	},
 	starName: {

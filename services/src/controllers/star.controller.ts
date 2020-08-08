@@ -23,7 +23,8 @@ router.post("/", async (request, response) => {
 		diameter: request.body.diameter,
 		colour: request.body.colour,
 		luminosity: request.body.luminosity,
-		planets: [],
+		planet_ids: [],
+		plante_names: [],
 	});
 
 	try {
@@ -75,12 +76,10 @@ router.put("/:id", async (request, response) => {
 
 router.delete("/:id", async (request, response) => {
 	try {
-		const star = await Star.findById(request.params.id);
-
 		await Planet.deleteMany({
-			starName: star.name,
+			starID: request.params.id,
 		});
-		await Star.deleteOne(star);
+		await Star.findByIdAndDelete(request.params.id);
 
 		response.json("Star deleted successfully.");
 	}

@@ -6,5 +6,6 @@ export default interface Star extends mongoose.Document {
 	diameter?: number,
 	colour?: Colour,
 	luminosity?: number,
-	planets?: string[],
+	planetIDs: string[],
+	planetNames: string[],
 }

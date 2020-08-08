@@ -13,7 +13,8 @@ export default (props: IStarDataProps) => {
 	const [diameter, setDiameter] = useState(0.0);
 	const [colour, setColour] = useState("");
 	const [luminosity, setLuminosity] = useState(0.0);
-	const [planets, setPlanets] = useState<string[]>([]);
+	const [planetIDs, setPlanetIDs] = useState<string[]>([]);
+	const [planetNames, setPlanetNames] = useState<string[]>([]);
 
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -25,14 +26,15 @@ export default (props: IStarDataProps) => {
 			setLoading(true);
 
 			try {
-				const response = await axios.get(`/stars/${starID}`);
-				const star = response.data;
+				const starResponse = await axios.get(`/stars/${starID}`);
+				const star = starResponse.data;
 
 				setName(star.name);
 				setDiameter(star.diameter);
 				setColour(star.colour);
 				setLuminosity(star.luminosity);
-				setPlanets(star.planets);
+				setPlanetIDs(star.planet_ids);
+				setPlanetNames(star.planet_names);
 
 				setError(null);
 			}
@@ -52,7 +54,7 @@ export default (props: IStarDataProps) => {
 				props.history.push("/stars");
 			}
 			catch (error) {
-
+				console.error(error);
 			}
 		})();
 	};
@@ -61,13 +63,19 @@ export default (props: IStarDataProps) => {
 		return <p>Loading...</p>;
 	}
 
+	const planetList = planetIDs.map((planetID, i) => {
+		return <li><Link to={ "planets/" + planetID }>{ planetNames[i] }</Link></li>;
+	});
+
 	return (
 		<div>
-			<p>{ name }</p>
-			<p>{ diameter }</p>
-			<p>{ colour }</p>
-			<p>{ luminosity }</p>
-			<p>{ planets.join(", ") }</p>
+			<h2>{ name }</h2>
+			<p><strong>Diameter (Solar radii): </strong>{ diameter }</p>
+			<p><strong>Colour: </strong>{ colour }</p>
+			<p><strong>Luminosity (Solar luminosity): </strong>{ luminosity }</p>
+
+			<h3>Planets</h3>
+			{ planetNames.length > 0 ? <ul>{ planetList }</ul> : <p>None</p> }
 
 			<Link to={ starID + "/edit" }>Edit</Link>
 			<button onClick={ deleteHandler }>Delete</button>

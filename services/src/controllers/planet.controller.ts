@@ -15,11 +15,13 @@ router.post("/", async (request, response) => {
 			name: request.body.name,
 			moonCount: request.body.moonCount,
 			diameter: request.body.diameter,
+			starID: request.params.star_id,
 			starName: star.name,
 			distanceFromStar: request.body.distanceFromStar,
 		});
 
-		star.planets.push(newPlanet.name);
+		star.planet_ids.push(newPlanet._id);
+		star.planet_names.push(newPlanet.name);
 		await star.save();
 
 		await Planet.create(newPlanet);
@@ -51,7 +53,7 @@ router.put("/:planet_id", async (request, response) => {
 		planet.distanceFromStar = request.body.distanceFromStar;
 
 		const star = await Star.findOne({ name: planet.starName, });
-		star.planets[star.planets.indexOf(oldPlanetName)] = planet.name;
+		star.planet_names[star.planet_names.indexOf(oldPlanetName)] = planet.name;
 		star.markModified("planets");
 
 		await planet.save();
@@ -69,7 +71,8 @@ router.delete("/:planet_id", async (request, response) => {
 		const planet = await Planet.findById(request.params.planet_id);
 
 		const star = await Star.findOne({ name: planet.starName, });
-		star.planets = star.planets.filter((planetName) => planetName !== planet.name);
+		star.planet_ids = star.planet_ids.filter((planetID) => planetID !== request.params.planet_id);
+		star.planet_names = star.planet_names.filter((planetName) => planetName !== planet.name);
 		star.markModified("planets");
 
 		await star.save();

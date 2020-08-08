@@ -36,7 +36,7 @@ export default (_props: StarListProps) => {
 	return (
 		<div>
 			<h2>List of Stars</h2>
-			{ loading ? <p>Loading...</p> : starList }
+			{ loading ? <p>Loading...</p> : (stars.length > 0 ? starList : <p>None</p>) }
 			<br />
 			<Link to="/stars/new">Create a Star</Link>
 			<br />

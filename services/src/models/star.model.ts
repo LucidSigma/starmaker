@@ -5,7 +5,8 @@ export interface IStarModel extends mongoose.Document {
 	diameter?: number,
 	colour?: string,
 	luminosity?: number,
-	planets?: string[],
+	planet_ids: string[],
+	planet_names: string[],
 }
 
 const starSchema = new Schema({
@@ -26,7 +27,13 @@ const starSchema = new Schema({
 		type: Number,
 		required: false,
 	},
-	planets: [
+	planet_ids: [
+		{
+			type: String,
+			required: true,
+		}
+	],
+	planet_names: [
 		{
 			type: String,
 			required: true,

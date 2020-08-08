@@ -76,6 +76,7 @@ export default (props: IStarDataProps) => {
 
 			<h3>Planets</h3>
 			{ planetNames.length > 0 ? <ul>{ planetList }</ul> : <p>None</p> }
+			<Link to={ starID + "planets/new" }>Create Planet</Link>
 
 			<Link to={ starID + "/edit" }>Edit</Link>
 			<button onClick={ deleteHandler }>Delete</button>

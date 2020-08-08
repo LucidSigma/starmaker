@@ -39,7 +39,7 @@ export default (props: PlanetFormProps) => {
 			</div>
 			
 			<div>
-				<input type="submit" value={ props.type + " Star" } />
+				<input type="submit" value={ props.type + " Planet" } />
 			</div>
 		</form>
 	);

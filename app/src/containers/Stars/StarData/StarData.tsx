@@ -26,8 +26,8 @@ export default (props: IStarDataProps) => {
 			setLoading(true);
 
 			try {
-				const starResponse = await axios.get(`/stars/${starID}`);
-				const star = starResponse.data;
+				const response = await axios.get(`/stars/${starID}`);
+				const star = response.data;
 
 				setName(star.name);
 				setDiameter(star.diameter);
@@ -64,7 +64,7 @@ export default (props: IStarDataProps) => {
 	}
 
 	const planetList = planetIDs.map((planetID, i) => {
-		return <li><Link to={ starID + "/planets/" + planetID }>{ planetNames[i] }</Link></li>;
+		return <li key= {planetID }><Link to={ starID + "/planets/" + planetID }>{ planetNames[i] }</Link></li>;
 	});
 
 	return (

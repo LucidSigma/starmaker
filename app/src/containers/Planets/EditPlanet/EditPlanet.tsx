@@ -101,11 +101,18 @@ export default (props: IEditPlanetProps) => {
 		display = <p>Submitting updated planet data...</p>
 	}
 
+	const errorMessage = error ? (
+		<div>
+			<p>An error occured. Please try again.</p>
+			<p>Error: { error }</p>
+		</div>
+	) : null;
+
 	return (
 		<div>
 			<h3>Edit Planet</h3>
 
-			{ error ? <div><p>An error occured. Please try again.</p><p>Error: { error }</p></div> : null }
+			{ errorMessage }
 			{ display }
 
 			<Link to={ "/stars/" + starID + "/planets" + planetID }>Return</Link>

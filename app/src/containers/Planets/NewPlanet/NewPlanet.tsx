@@ -77,11 +77,18 @@ export default (props: INewPlanetProps) => {
 		display = <p>Submitting new planet...</p>
 	}
 
+	const errorMessage = error ? (
+		<div>
+			<p>An error occured. Please try again.</p>
+			<p>Error: { error }</p>
+		</div>
+	) : null;
+
 	return (
 		<div>
 			<h3>Create a New Planet</h3>
 
-			{ error ? <div><p>An error occured. Please try again.</p><p>Error: { error }</p></div> : null }
+			{ errorMessage }
 			{ display }
 
 			<Link to={ "/stars/" + props.match.params.star_id }>Return</Link>

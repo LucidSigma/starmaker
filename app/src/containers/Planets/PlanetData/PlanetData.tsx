@@ -48,28 +48,46 @@ export default (props: IPlanetDataProps) => {
 
 	const deleteHandler = () => {
 		(async () => {
+			setLoading(true);
+
 			try {
 				await axios.delete(`/stars/${starID}/planets/${planetID}`);
+				setError(null);
 
 				props.history.push(`/stars/${starID}`);
 			}
 			catch (error) {
-				console.error(error);
+				setError(error);
 			}
+
+			setLoading(false);
 		})();
 	};
 
-	if (loading) {
-		return <p>Loading...</p>;
-	}
-
-	return (
+	let display = (
 		<div>
 			<h2>{ name }</h2>
 			<h3>Orbits { starName }</h3>
 			<p><strong>Number of moons: </strong>{ moonCount }</p>
 			<p><strong>Diameter (in Earth radii): </strong>{ diameter }</p>
 			<p><strong>Distance from star (in AU): </strong>{ distanceFromStar }</p>
+		</div>
+	);
+
+	if (loading) {
+		display = <p>Loading planet data...</p>;
+	}
+
+	if (error) {
+		display = (<div>
+			<p>An error occured. Please try again.</p>
+			<p>Error: { error }</p>
+		</div>);
+	}
+
+	return (
+		<div>
+			{ display }
 
 			<Link to={ planetID + "/edit" }>Edit</Link>
 			<button onClick={ deleteHandler }>Delete</button>

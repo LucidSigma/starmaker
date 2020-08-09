@@ -74,7 +74,7 @@ export default (props: INewPlanetProps) => {
 	/>);
 
 	if (loading) {
-		display = <p>Submitting...</p>
+		display = <p>Submitting new planet...</p>
 	}
 
 	return (

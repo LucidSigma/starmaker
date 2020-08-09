@@ -48,26 +48,27 @@ export default (props: IStarDataProps) => {
 
 	const deleteHandler = () => {
 		(async () => {
+			setLoading(true);
+
 			try {
 				await axios.delete(`/stars/${starID}`);
 
+				setError(null);
 				props.history.push("/stars");
 			}
 			catch (error) {
-				console.error(error);
+				setError(error);
 			}
+
+			setLoading(false);
 		})();
 	};
-
-	if (loading) {
-		return <p>Loading...</p>;
-	}
 
 	const planetList = planetIDs.map((planetID, i) => {
 		return <li key= {planetID }><Link to={ starID + "/planets/" + planetID }>{ planetNames[i] }</Link></li>;
 	});
 
-	return (
+	let display = (
 		<div>
 			<h2>{ name }</h2>
 			<p><strong>Diameter (Solar radii): </strong>{ diameter }</p>
@@ -80,6 +81,26 @@ export default (props: IStarDataProps) => {
 
 			<Link to={ starID + "/edit" }>Edit</Link>
 			<button onClick={ deleteHandler }>Delete</button>
+		</div>
+	);
+
+	if (loading) {
+		display = <p>Loading planet data...</p>;
+	}
+
+	if (error) {
+		display = (
+			<div>
+				<p>An error occured. Please try again.</p>
+				<p>Error: { error }</p>
+			</div>
+		);
+	}
+	
+	return (
+		<div>
+			{ display }
+			
 			<br />
 			<Link to="/stars">Return</Link>
 		</div>

@@ -18,9 +18,15 @@ export default (props: IEditStarProps) => {
 	const [colour, setColour] = useState(Colours[0]);
 	const [luminosity, setLuminosity] = useState(1.0);
 
+	const [loading, setLoading] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
+	const [error, setError] = useState(null);
+
 	const starID = props.match.params.star_id;
 
 	useEffect(() => {
+		setLoading(true);
+
 		(async () => {
 			try {
 				const response = await axios.get(`/stars/${starID}`);
@@ -30,11 +36,15 @@ export default (props: IEditStarProps) => {
 				setDiameter(star.diameter);
 				setColour(star.colour);
 				setLuminosity(star.luminosity);
+
+				setError(null);
 			}
 			catch (error) {
-
+				setError(error);
 			}
 		})();
+
+		setLoading(false);
 	}, [starID]);
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,33 +74,57 @@ export default (props: IEditStarProps) => {
 		};
 
 		(async () => {
+			setSubmitting(true);
+
 			try {
 				await axios.put(`/stars/${starID}`, updatedStar);
+				setError(null);
 			}
 			catch (error) {
-
+				setError(error);
 			}
 
+			setSubmitting(false);
 			props.history.push(`/stars/${starID}`);
 		})();
 	};
+
+	let display = (
+		<StarForm
+			type="Edit"
+			name={ name }
+			diameter={ diameter }
+			colour={ colour }
+			luminosity={ luminosity }
+			onSubmitHandler={ onSubmitHandler }
+			onChangeName={ onChangeName }
+			onChangeColour={ onChangeColour }
+			onChangeDiameter={ onChangeDiameter }
+			onChangeLuminosity={ onChangeLuminosity }
+		/>
+	);
+
+	if (loading) {
+		display = <p>Loading star data...</p>
+	}
+
+	if (submitting) {
+		display = <p>Submitting updated star data...</p>
+	}
+
+	const errorMessage = error ? (
+		<div>
+			<p>An error occured. Please try again.</p>
+			<p>Error: { error }</p>
+		</div>
+	) : null;
 
 	return (
 		<div>
 			<h3>Edit Star</h3>
 
-			<StarForm
-				type="Edit"
-				name={ name }
-				diameter={ diameter }
-				colour={ colour }
-				luminosity={ luminosity }
-				onSubmitHandler={ onSubmitHandler }
-				onChangeName={ onChangeName }
-				onChangeColour={ onChangeColour }
-				onChangeDiameter={ onChangeDiameter }
-				onChangeLuminosity={ onChangeLuminosity }
-			/>
+			{ errorMessage }
+			{ display }
 
 			<Link to="/stars">Return</Link>
 		</div>

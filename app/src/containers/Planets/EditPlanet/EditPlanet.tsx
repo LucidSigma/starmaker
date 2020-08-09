@@ -18,12 +18,15 @@ export default (props: IEditPlanetProps) => {
 	const [distanceFromStar, setDistanceFromStar] = useState(1.0);
 
 	const [loading, setLoading] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
 	const [error, setError] = useState(null);
 
 	const starID = props.match.params.star_id;
 	const planetID = props.match.params.planet_id;
 
 	useEffect(() => {
+		setLoading(true);
+
 		(async () => {
 			try {
 				const response = await axios.get(`/stars/${starID}/planets/${planetID}`);
@@ -33,11 +36,15 @@ export default (props: IEditPlanetProps) => {
 				setMoonCount(planet.moonCount);
 				setDiameter(planet.diameter);
 				setDistanceFromStar(planet.distanceFromStar);
+
+				setError(null);
 			}
 			catch (error) {
-
+				setError(error);
 			}
 		})();
+
+		setLoading(false);
 	}, [planetID, starID]);
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +74,7 @@ export default (props: IEditPlanetProps) => {
 		};
 
 		(async () => {
-			setLoading(true);
+			setSubmitting(true);
 
 			try {
 				await axios.put("/stars/" + starID + "/planets/" + planetID, newPlanet);
@@ -77,7 +84,7 @@ export default (props: IEditPlanetProps) => {
 				setError(error);
 			}
 
-			setLoading(false);
+			setSubmitting(false);
 			props.history.push("/stars/" + starID + "/planets/" + planetID);
 		})();
 	};
@@ -98,6 +105,10 @@ export default (props: IEditPlanetProps) => {
 	);
 
 	if (loading) {
+		display = <p>Loading planet data...</p>
+	}
+
+	if (submitting) {
 		display = <p>Submitting updated planet data...</p>
 	}
 

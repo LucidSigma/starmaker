@@ -17,6 +17,9 @@ export default (props: IEditPlanetProps) => {
 	const [diameter, setDiameter] = useState(1.0);
 	const [distanceFromStar, setDistanceFromStar] = useState(1.0);
 
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
+
 	const starID = props.match.params.star_id;
 	const planetID = props.match.params.planet_id;
 
@@ -64,33 +67,46 @@ export default (props: IEditPlanetProps) => {
 		};
 
 		(async () => {
+			setLoading(true);
+
 			try {
 				await axios.put("/stars/" + starID + "/planets/" + planetID, newPlanet);
+				setError(null);
 			}
 			catch (error) {
-
+				setError(error);
 			}
 
+			setLoading(false);
 			props.history.push("/stars/" + starID + "/planets/" + planetID);
 		})();
 	};
+
+	let display = (
+		<PlanetForm
+			type="Edit"
+			name={ name }
+			moonCount={ moonCount}
+			diameter={ diameter }
+			distanceFromStar={ distanceFromStar }
+			onSubmitHandler={ onSubmitHandler }
+			onChangeName={ onChangeName }
+			onChangeMoonCount={ onChangeMoonCount }
+			onChangeDiameter={ onChangeDiameter }
+			onChangeDistanceFromStar={ onChangeDistanceFromStar }
+		/>
+	);
+
+	if (loading) {
+		display = <p>Submitting updated planet data...</p>
+	}
 
 	return (
 		<div>
 			<h3>Edit Planet</h3>
 
-			<PlanetForm
-				type="Edit"
-				name={ name }
-				moonCount={ moonCount}
-				diameter={ diameter }
-				distanceFromStar={ distanceFromStar }
-				onSubmitHandler={ onSubmitHandler }
-				onChangeName={ onChangeName }
-				onChangeMoonCount={ onChangeMoonCount }
-				onChangeDiameter={ onChangeDiameter }
-				onChangeDistanceFromStar={ onChangeDistanceFromStar }
-			/>
+			{ error ? <div><p>An error occured. Please try again.</p><p>Error: { error }</p></div> : null }
+			{ display }
 
 			<Link to={ "/stars/" + starID + "/planets" + planetID }>Return</Link>
 		</div>

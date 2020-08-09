@@ -18,6 +18,7 @@ export default (_props: StarListProps) => {
 
 			try {
 				const response = await axios.get("/stars");
+
 				setStars(response.data);
 				setError(null);
 			}
@@ -30,14 +31,24 @@ export default (_props: StarListProps) => {
 	}, []);
 
 	const starList = stars.map((star) => {
-		return <Link key={ star._id } to={ "/stars/" + star._id }>{ star.name }</Link>
+		return <li><Link key={ star._id } to={ "/stars/" + star._id }>{ star.name }</Link></li>;
 	});
+
+	let display = (
+		<div>
+			{ starList.length > 0 ? <ul>{ starList }</ul> : <p>No stars to show.</p> }
+		</div>
+	);
+
+	if (loading) {
+		display = <p>Loading stars...</p>;
+	}
 
 	return (
 		<div>
 			<h2>List of Stars</h2>
-			{ loading ? <p>Loading...</p> : (stars.length > 0 ? starList : <p>None</p>) }
-			<br />
+			{ display }
+			
 			<Link to="/stars/new">Create a Star</Link>
 			<br />
 			<Link to="/">Return to Home</Link>

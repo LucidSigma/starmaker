@@ -16,6 +16,9 @@ export default (props: INewPlanetProps) => {
 	const [diameter, setDiameter] = useState(1.0);
 	const [distanceFromStar, setDistanceFromStar] = useState(1.0);
 
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
+
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.currentTarget.value);
 	};
@@ -34,6 +37,7 @@ export default (props: INewPlanetProps) => {
 
 	const onSubmitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
+		setLoading(true);
 
 		const newPlanet = {
 			name,
@@ -45,31 +49,40 @@ export default (props: INewPlanetProps) => {
 		(async () => {
 			try {
 				await axios.post("/stars/" + props.match.params.star_id + "/planets", newPlanet);
+				setError(null);
 			}
 			catch (error) {
-
+				setError(error);
 			}
 
+			setLoading(false);
 			props.history.push("/stars/" + props.match.params.star_id);
 		})();
 	};
+
+	let display = (<PlanetForm
+		type="New"
+		name={ name }
+		moonCount={ moonCount}
+		diameter={ diameter }
+		distanceFromStar={ distanceFromStar }
+		onSubmitHandler={ onSubmitHandler }
+		onChangeName={ onChangeName }
+		onChangeMoonCount={ onChangeMoonCount }
+		onChangeDiameter={ onChangeDiameter }
+		onChangeDistanceFromStar={ onChangeDistanceFromStar }
+	/>);
+
+	if (loading) {
+		display = <p>Submitting...</p>
+	}
 
 	return (
 		<div>
 			<h3>Create a New Planet</h3>
 
-			<PlanetForm
-				type="New"
-				name={ name }
-				moonCount={ moonCount}
-				diameter={ diameter }
-				distanceFromStar={ distanceFromStar }
-				onSubmitHandler={ onSubmitHandler }
-				onChangeName={ onChangeName }
-				onChangeMoonCount={ onChangeMoonCount }
-				onChangeDiameter={ onChangeDiameter }
-				onChangeDistanceFromStar={ onChangeDistanceFromStar }
-			/>
+			{ error ? <div><p>An error occured. Please try again.</p><p>Error: { error }</p></div> : null }
+			{ display }
 
 			<Link to={ "/stars/" + props.match.params.star_id }>Return</Link>
 		</div>

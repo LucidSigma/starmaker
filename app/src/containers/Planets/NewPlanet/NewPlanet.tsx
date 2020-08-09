@@ -49,14 +49,15 @@ export default (props: INewPlanetProps) => {
 		(async () => {
 			try {
 				await axios.post("/stars/" + props.match.params.star_id + "/planets", newPlanet);
+				
 				setError(null);
+				props.history.push("/stars/" + props.match.params.star_id);
 			}
 			catch (error) {
 				setError(error);
 			}
 
 			setLoading(false);
-			props.history.push("/stars/" + props.match.params.star_id);
 		})();
 	};
 

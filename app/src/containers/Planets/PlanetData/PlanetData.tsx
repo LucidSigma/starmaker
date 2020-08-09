@@ -52,8 +52,8 @@ export default (props: IPlanetDataProps) => {
 
 			try {
 				await axios.delete(`/stars/${starID}/planets/${planetID}`);
+				
 				setError(null);
-
 				props.history.push(`/stars/${starID}`);
 			}
 			catch (error) {
@@ -79,10 +79,12 @@ export default (props: IPlanetDataProps) => {
 	}
 
 	if (error) {
-		display = (<div>
-			<p>An error occured. Please try again.</p>
-			<p>Error: { error }</p>
-		</div>);
+		display = (
+			<div>
+				<p>An error occured. Please try again.</p>
+				<p>Error: { error }</p>
+			</div>
+		);
 	}
 
 	return (

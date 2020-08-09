@@ -14,6 +14,9 @@ export default (props: INewStarProps) => {
 	const [colour, setColour] = useState(Colours[0]);
 	const [luminosity, setLuminosity] = useState(1.0);
 
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.currentTarget.value);
 	};
@@ -41,33 +44,54 @@ export default (props: INewStarProps) => {
 		};
 
 		(async () => {
+			setLoading(true);
+
 			try {
 				await axios.post("/stars", newStar);
+				
+				setError(null);
+				props.history.push("/stars");
 			}
 			catch (error) {
-
+				setError(error);
 			}
 
-			props.history.push("/stars");
+			setLoading(false);
 		})();
 	};
+
+	let display = (
+		<StarForm
+			type="New"
+			name={ name }
+			diameter={ diameter }
+			colour={ colour }
+			luminosity={ luminosity }
+			onSubmitHandler={ onSubmitHandler }
+			onChangeName={ onChangeName }
+			onChangeColour={ onChangeColour }
+			onChangeDiameter={ onChangeDiameter }
+			onChangeLuminosity={ onChangeLuminosity }
+		/>
+	);
+
+	if (loading) {
+		display = <p>Submitting new star...</p>
+	}
+
+	const errorMessage = error ? (
+		<div>
+			<p>An error occured. Please try again.</p>
+			<p>Error: { error }</p>
+		</div>
+	) : null;
 
 	return (
 		<div>
 			<h3>Create a New Star</h3>
 
-			<StarForm
-				type="New"
-				name={ name }
-				diameter={ diameter }
-				colour={ colour }
-				luminosity={ luminosity }
-				onSubmitHandler={ onSubmitHandler }
-				onChangeName={ onChangeName }
-				onChangeColour={ onChangeColour }
-				onChangeDiameter={ onChangeDiameter }
-				onChangeLuminosity={ onChangeLuminosity }
-			/>
+			{ errorMessage }
+			{ display }
 		</div>
 	);
 };

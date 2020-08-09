@@ -126,7 +126,7 @@ export default (props: IEditStarProps) => {
 			{ errorMessage }
 			{ display }
 
-			<Link to="/stars">Return</Link>
+			<Link to={ "/stars/" + starID }>Return</Link>
 		</div>
 	);
 };

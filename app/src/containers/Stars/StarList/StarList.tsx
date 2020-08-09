@@ -44,9 +44,17 @@ export default (_props: StarListProps) => {
 		display = <p>Loading stars...</p>;
 	}
 
+	const errorMessage = error ? (
+		<div>
+			<p>An error occured. Please try again.</p>
+			<p>Error: { error }</p>
+		</div>
+	) : null;
+
 	return (
 		<div>
 			<h2>List of Stars</h2>
+			{ errorMessage }
 			{ display }
 			
 			<Link to="/stars/new">Create a Star</Link>

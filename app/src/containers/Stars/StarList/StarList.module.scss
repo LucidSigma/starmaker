@@ -1,0 +1,42 @@
+@import "../../../variables.scss";
+
+.List {
+	width: 75%;
+	margin: 20px auto;
+	border-radius: 10px;
+
+	@media screen and (max-width: $min-width-expand) {
+		width: 100%;
+	}
+
+	.ListHeader {
+		color: white;
+		background-color: lighten($primary-colour, 10%);
+		text-decoration: underline;
+	}
+	
+	.Link {
+		color: lighten($primary-colour, 10%);
+	
+		&:hover {
+			color: lighten($primary-colour, 10%);
+			text-decoration: underline;
+		}
+	}
+}
+
+.ButtonLink {
+	margin: 10px;
+
+	.Button {
+		padding: 10px 20px;
+
+		background-color: $primary-colour;
+		border-color: white;
+		border-radius: 10px;
+
+		&:hover {
+			background-color: lighten($primary-colour, 10%);
+		}
+	}
+}

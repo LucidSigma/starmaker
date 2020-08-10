@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Alert, Button, ListGroup } from "react-bootstrap"
 import { Link } from "react-router-dom";
 
 import Star from "../../../data/star";
+
+import styleClasses from "./StarList.module.scss";
 
 export type StarListProps = { };
 
@@ -10,7 +13,7 @@ export default (_props: StarListProps) => {
 	const [stars, setStars] = useState<Star[]>([]);
 
 	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
 		(async () => {
@@ -20,10 +23,10 @@ export default (_props: StarListProps) => {
 				const response = await axios.get("/stars");
 
 				setStars(response.data);
-				setError(null);
+				setError("");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 
 			setLoading(false);
@@ -31,12 +34,25 @@ export default (_props: StarListProps) => {
 	}, []);
 
 	const starList = stars.map((star) => {
-		return <li><Link key={ star._id } to={ "/stars/" + star._id }>{ star.name }</Link></li>;
+		return (
+			<ListGroup.Item key={ star._id }>
+				<Link className={ styleClasses.Link } to={ "/stars/" + star._id }>
+					{ star.name }
+				</Link>
+			</ListGroup.Item>
+		);
 	});
+
+	const starListWithHeader = (
+		<ListGroup className={ styleClasses.List }>
+			<ListGroup.Item className={ styleClasses.ListHeader }><h3>Stars</h3></ListGroup.Item>
+			{ starList }
+		</ListGroup>
+	);
 
 	let display = (
 		<div>
-			{ starList.length > 0 ? <ul>{ starList }</ul> : <p>No stars to show.</p> }
+			{ starList.length > 0 ? starListWithHeader : <p>No stars to show.</p> }
 		</div>
 	);
 
@@ -45,10 +61,9 @@ export default (_props: StarListProps) => {
 	}
 
 	const errorMessage = error ? (
-		<div>
-			<p>An error occured. Please try again.</p>
-			<p>Error: { error }</p>
-		</div>
+		<Alert variant="danger">
+			{ error }
+		</Alert>
 	) : null;
 
 	return (
@@ -57,9 +72,13 @@ export default (_props: StarListProps) => {
 			{ errorMessage }
 			{ display }
 			
-			<Link to="/stars/new">Create a Star</Link>
-			<br />
-			<Link to="/">Return to Home</Link>
+			<Link className={ styleClasses.ButtonLink } to="/stars/new">
+				<Button className={ styleClasses.Button }>Create a Star</Button>
+			</Link>
+
+			<Link className={ styleClasses.ButtonLink } to="/">
+				<Button className={ styleClasses.Button }>Return to Home</Button>
+			</Link>
 		</div>
 	);
 };

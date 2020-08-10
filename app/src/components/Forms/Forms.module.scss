@@ -5,6 +5,7 @@ $button-colour: lighten($primary-colour, 30%);
 .Submit {
 	width: 60%;
 	margin: auto;
+	
 	color: $button-colour;
 	border-color: $button-colour;
 
@@ -17,7 +18,7 @@ $button-colour: lighten($primary-colour, 30%);
 		transition: 0.3s;
 	}
 
-	@media screen and (max-width: 700px) {
+	@media screen and (max-width: $min-width-expand) {
 		width: 100%;
 	}
 }

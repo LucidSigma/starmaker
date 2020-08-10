@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 
 import EditPlanet from "../../containers/Planets/EditPlanet/EditPlanet";
 import EditStar from "../../containers/Stars/EditStar/EditStar";
@@ -10,12 +10,24 @@ import PlanetData from "../../containers/Planets/PlanetData/PlanetData";
 import StarData from "../../containers/Stars/StarData/StarData";
 import StarList from "../../containers/Stars/StarList/StarList";
 
+import { Nav, Navbar } from "react-bootstrap";
+
 export type StarMakerProps = { };
 
 export default (_props: StarMakerProps) => {
 	return (
 		<div>
-			<h1>StarMaker</h1>
+			<Navbar bg="dark" expand="lg">
+				<Navbar.Brand><Link to="/">StarMaker</Link></Navbar.Brand>
+				<Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
+
+				<Navbar.Collapse id="basic-navbar-nav">
+					<Nav className = "mr-auto">
+						<Nav.Link><Link to="/">Home</Link></Nav.Link>
+						<Nav.Link><Link to="/new">Stars</Link></Nav.Link>
+					</Nav>
+				</Navbar.Collapse>
+			</Navbar>
 
 			<Switch>
 				<Route path="/" exact component={ HomePage } />

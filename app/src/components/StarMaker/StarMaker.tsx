@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import EditPlanet from "../../containers/Planets/EditPlanet/EditPlanet";
 import EditStar from "../../containers/Stars/EditStar/EditStar";
@@ -18,7 +18,7 @@ export default (_props: StarMakerProps) => {
 		<div>
 			<Navbar />
 
-			<div className="container">
+			<div className="container" style={ { marginTop: "20px", } }>
 				<Switch>
 					<Route path="/" exact component={ HomePage } />
 					<Route path="/stars" exact component={ StarList } />

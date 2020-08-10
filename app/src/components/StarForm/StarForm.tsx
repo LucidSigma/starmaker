@@ -47,7 +47,7 @@ export default (props: StarFormProps) => {
 			</div>
 			
 			<div>
-				<input type="submit" value={ props.type + " Star" } />
+				<input type="submit" value={ (props.type === "New" ? "Create " : "") + props.type + " Star" } />
 			</div>
 		</form>
 	);

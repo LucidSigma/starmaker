@@ -1,4 +1,7 @@
 import React from "react";
+import { Col, Form, Row } from "react-bootstrap";
+
+import styleClasses from "./PlanetForm.module.scss";
 
 export type PlanetFormProps = {
 	type: "New" | "Edit",
@@ -17,30 +20,42 @@ export type PlanetFormProps = {
 
 export default (props: PlanetFormProps) => {
 	return (
-		<form onSubmit={ props.onSubmitHandler }>
-			<div>
-				<label>Name: </label>
-				<input type="text" required value={ props.name } onChange={ props.onChangeName } />
-			</div>
-
-			<div>
-				<label>Number of moons: </label>
-				<input type="number" step="1" value={ props.moonCount } onChange={ props.onChangeMoonCount } />
-			</div>
+		<Form onSubmit={ props.onSubmitHandler }>
+			<Row>
+				<Col>
+					<Form.Group>
+						<Form.Label>Name: </Form.Label>
+						<Form.Control type="text" required value={ props.name } onChange={ props.onChangeName } />
+					</Form.Group>
+				</Col>
+				
+				<Col>
+					<Form.Group>
+						<Form.Label>Number of moons: </Form.Label>
+						<Form.Control type="number" step="1" value={ props.moonCount } onChange={ props.onChangeMoonCount } />
+					</Form.Group>
+				</Col>
+			</Row>
 			
-			<div>
-				<label>Diameter (in Earth radii): </label>
-				<input type="number" step="0.1" value={ props.diameter } onChange={ props.onChangeDiameter } />
-			</div>
+			<Row>
+				<Col>
+					<Form.Group>
+						<Form.Label>Diameter (in Earth radii): </Form.Label>
+						<Form.Control type="number" step="0.1" value={ props.diameter } onChange={ props.onChangeDiameter } />
+					</Form.Group>
+				</Col>
 
-			<div>
-				<label>Distance from star (in AU): </label>
-				<input type="number" step="0.1" value={ props.distanceFromStar } onChange={ props.onChangeDistanceFromStar } />
-			</div>
+				<Col>
+					<Form.Group>
+						<Form.Label>Distance from star (in AU): </Form.Label>
+						<Form.Control type="number" step="0.1" value={ props.distanceFromStar } onChange={ props.onChangeDistanceFromStar } />
+					</Form.Group>
+				</Col>
+			</Row>
 			
-			<div>
-				<input type="submit" value={ props.type + " Planet" } />
-			</div>
-		</form>
+			<Form.Group>
+				<Form.Control className={ styleClasses.Submit } type="submit" value={ (props.type === "New" ? "Create " : "") + props.type + " Planet" } />
+			</Form.Group>
+		</Form>
 	);
 };

@@ -7,7 +7,7 @@ import StarForm from "../../../components/Forms/StarForm/StarForm";
 
 import Colours, { Colour } from "../../../data/star_colours";
 
-import styleClasses from "./NewStar.module.scss";
+import styleClasses from "../../../components/Forms/Forms.module.scss";
 
 export interface INewStarProps extends RouteComponentProps { }
 

@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { Alert, Button } from "react-bootstrap";
+import { Link, RouteComponentProps } from "react-router-dom";
 
 import StarForm from "../../../components/Forms/StarForm/StarForm";
 
 import Colours, { Colour } from "../../../data/star_colours";
+
+import styleClasses from "./NewStar.module.scss";
 
 export interface INewStarProps extends RouteComponentProps { }
 
@@ -80,10 +83,9 @@ export default (props: INewStarProps) => {
 	}
 
 	const errorMessage = error ? (
-		<div>
-			<p>An error occured. Please try again.</p>
-			<p>Error: { error }</p>
-		</div>
+		<Alert variant="danger">
+			{ error }
+		</Alert>
 	) : null;
 
 	return (
@@ -92,6 +94,10 @@ export default (props: INewStarProps) => {
 
 			{ errorMessage }
 			{ display }
+
+			<Link to="/stars">
+				<Button className={ styleClasses.ReturnButton }>Return</Button>
+			</Link>
 		</div>
 	);
 };

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 
-import PlanetForm from "../../../components/PlanetForm/PlanetForm";
+import PlanetForm from "../../../components/Forms/PlanetForm/PlanetForm";
 
 interface MatchParams {
 	star_id: string,

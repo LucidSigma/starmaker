@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 
-import StarForm from "../../../components/StarForm/StarForm";
+import StarForm from "../../../components/Forms/StarForm/StarForm";
 
 import Colours, { Colour } from "../../../data/star_colours";
 

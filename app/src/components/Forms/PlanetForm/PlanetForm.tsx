@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Form, Row } from "react-bootstrap";
 
-import styleClasses from "./PlanetForm.module.scss";
+import styleClasses from "../Forms.module.scss";
 
 export type PlanetFormProps = {
 	type: "New" | "Edit",
@@ -53,6 +53,8 @@ export default (props: PlanetFormProps) => {
 				</Col>
 			</Row>
 			
+			<hr />
+
 			<Form.Group>
 				<Form.Control className={ styleClasses.Submit } type="submit" value={ (props.type === "New" ? "Create " : "") + props.type + " Planet" } />
 			</Form.Group>

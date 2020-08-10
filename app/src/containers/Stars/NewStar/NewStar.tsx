@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import StarForm from "../../../components/StarForm/StarForm";
+import StarForm from "../../../components/Forms/StarForm/StarForm";
 
 import Colours, { Colour } from "../../../data/star_colours";
 
@@ -14,7 +14,7 @@ export default (props: INewStarProps) => {
 	const [colour, setColour] = useState(Colours[0]);
 	const [luminosity, setLuminosity] = useState(1.0);
 
-	const [loading, setLoading] = useState(true);
+	const [submitting, setSubmitting] = useState(false);
 	const [error, setError] = useState(null);
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,7 @@ export default (props: INewStarProps) => {
 		};
 
 		(async () => {
-			setLoading(true);
+			setSubmitting(true);
 
 			try {
 				await axios.post("/stars", newStar);
@@ -56,7 +56,7 @@ export default (props: INewStarProps) => {
 				setError(error);
 			}
 
-			setLoading(false);
+			setSubmitting(false);
 		})();
 	};
 
@@ -75,7 +75,7 @@ export default (props: INewStarProps) => {
 		/>
 	);
 
-	if (loading) {
+	if (submitting) {
 		display = <p>Submitting new star...</p>
 	}
 

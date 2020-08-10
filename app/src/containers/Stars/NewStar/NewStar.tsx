@@ -15,7 +15,7 @@ export default (props: INewStarProps) => {
 	const [luminosity, setLuminosity] = useState(1.0);
 
 	const [submitting, setSubmitting] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState("");
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.currentTarget.value);
@@ -49,11 +49,11 @@ export default (props: INewStarProps) => {
 			try {
 				await axios.post("/stars", newStar);
 				
-				setError(null);
+				setError("");
 				props.history.push("/stars");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 
 			setSubmitting(false);

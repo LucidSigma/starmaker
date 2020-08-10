@@ -17,7 +17,7 @@ export default (props: INewPlanetProps) => {
 	const [distanceFromStar, setDistanceFromStar] = useState(1.0);
 
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState("");
 
 	const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.currentTarget.value);
@@ -50,11 +50,11 @@ export default (props: INewPlanetProps) => {
 			try {
 				await axios.post("/stars/" + props.match.params.star_id + "/planets", newPlanet);
 				
-				setError(null);
+				setError("");
 				props.history.push("/stars/" + props.match.params.star_id);
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 
 			setLoading(false);

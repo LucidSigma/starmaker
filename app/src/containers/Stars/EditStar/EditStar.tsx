@@ -20,7 +20,7 @@ export default (props: IEditStarProps) => {
 
 	const [loading, setLoading] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState("");
 
 	const starID = props.match.params.star_id;
 
@@ -37,10 +37,10 @@ export default (props: IEditStarProps) => {
 				setColour(star.colour);
 				setLuminosity(star.luminosity);
 
-				setError(null);
+				setError("");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 		})();
 
@@ -78,10 +78,10 @@ export default (props: IEditStarProps) => {
 
 			try {
 				await axios.put(`/stars/${starID}`, updatedStar);
-				setError(null);
+				setError("");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 
 			setSubmitting(false);

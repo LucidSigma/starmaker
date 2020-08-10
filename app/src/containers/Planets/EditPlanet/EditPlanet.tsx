@@ -19,7 +19,7 @@ export default (props: IEditPlanetProps) => {
 
 	const [loading, setLoading] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState("");
 
 	const starID = props.match.params.star_id;
 	const planetID = props.match.params.planet_id;
@@ -37,10 +37,10 @@ export default (props: IEditPlanetProps) => {
 				setDiameter(planet.diameter);
 				setDistanceFromStar(planet.distanceFromStar);
 
-				setError(null);
+				setError("");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 		})();
 
@@ -78,10 +78,10 @@ export default (props: IEditPlanetProps) => {
 
 			try {
 				await axios.put("/stars/" + starID + "/planets/" + planetID, newPlanet);
-				setError(null);
+				setError("");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 
 			setSubmitting(false);

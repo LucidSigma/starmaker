@@ -45,7 +45,7 @@ export default (_props: StarListProps) => {
 
 	const starListWithHeader = (
 		<ListGroup className={ styleClasses.List }>
-			<ListGroup.Item className={ styleClasses.ListHeader }><h3>Stars</h3></ListGroup.Item>
+			<ListGroup.Item className={ styleClasses.ListHeader }><h2>List of Stars</h2></ListGroup.Item>
 			{ starList }
 		</ListGroup>
 	);
@@ -68,7 +68,6 @@ export default (_props: StarListProps) => {
 
 	return (
 		<div>
-			<h2>List of Stars</h2>
 			{ errorMessage }
 			{ display }
 			

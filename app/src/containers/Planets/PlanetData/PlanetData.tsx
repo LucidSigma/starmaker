@@ -17,7 +17,7 @@ export default (props: IPlanetDataProps) => {
 	const [starName, setStarName] = useState("");
 
 	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState("");
 
 	const starID = props.match.params.star_id;
 	const planetID = props.match.params.planet_id;
@@ -36,10 +36,10 @@ export default (props: IPlanetDataProps) => {
 				setDistanceFromStar(planet.distanceFromStar);
 				setStarName(planet.starName);
 
-				setError(null);
+				setError("");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 			
 			setLoading(false);
@@ -53,11 +53,11 @@ export default (props: IPlanetDataProps) => {
 			try {
 				await axios.delete(`/stars/${starID}/planets/${planetID}`);
 				
-				setError(null);
+				setError("");
 				props.history.push(`/stars/${starID}`);
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 
 			setLoading(false);

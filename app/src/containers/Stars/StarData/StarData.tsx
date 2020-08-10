@@ -17,7 +17,7 @@ export default (props: IStarDataProps) => {
 	const [planetNames, setPlanetNames] = useState<string[]>([]);
 
 	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState("");
 
 	const starID = props.match.params.star_id;
 
@@ -36,10 +36,10 @@ export default (props: IStarDataProps) => {
 				setPlanetIDs(star.planet_ids);
 				setPlanetNames(star.planet_names);
 
-				setError(null);
+				setError("");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 			
 			setLoading(false);
@@ -53,11 +53,11 @@ export default (props: IStarDataProps) => {
 			try {
 				await axios.delete(`/stars/${starID}`);
 
-				setError(null);
+				setError("");
 				props.history.push("/stars");
 			}
 			catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 
 			setLoading(false);
@@ -65,7 +65,7 @@ export default (props: IStarDataProps) => {
 	};
 
 	const planetList = planetIDs.map((planetID, i) => {
-		return <li key= {planetID }><Link to={ starID + "/planets/" + planetID }>{ planetNames[i] }</Link></li>;
+		return <li key= { planetID }><Link to={ starID + "/planets/" + planetID }>{ planetNames[i] }</Link></li>;
 	});
 
 	let display = (

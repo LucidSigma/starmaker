@@ -1,0 +1,38 @@
+@import "../../../variables.scss";
+
+.DataList {
+	width: 80%;
+	margin: auto;
+	margin-bottom: 20px;
+
+	@media screen and (max-width: $min-width-expand) {
+		width: 100%;
+	}
+}
+
+.PlanetList {
+	list-style: none;
+	padding: 0;
+
+	.PlanetLink {
+		color: lighten($primary-colour, 40%);
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.ActionButton {
+	margin: 10px;
+	padding: 10px 20px;
+
+	background-color: $primary-colour;
+	border-color: white;
+	border-radius: 10px;
+
+	&:hover {
+		background-color: lighten($primary-colour, 30%);
+		border-color: white;
+	}
+}

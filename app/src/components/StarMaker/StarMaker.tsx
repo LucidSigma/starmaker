@@ -28,7 +28,7 @@ export default (_props: StarMakerProps) => {
 					<Route path="/stars/:star_id/planets/:planet_id" component={ PlanetData } />
 					<Route path="/stars/:star_id/edit" component={ EditStar } />
 					<Route path="/stars/:star_id" component={ StarData } />
-					<Route render={ () => <h1>404 Page.</h1> } /> 
+					<Route render={ () => <h1>Page not found.</h1> } /> 
 				</Switch>
 			</div>
 		</div>

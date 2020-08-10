@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Alert, Button, ListGroup } from "react-bootstrap"; 
 import { Link, RouteComponentProps } from "react-router-dom";
+
+import styleClasses from "./StarData.module.scss";
 
 interface MatchParams {
 	star_id: string,
@@ -65,35 +68,51 @@ export default (props: IStarDataProps) => {
 	};
 
 	const planetList = planetIDs.map((planetID, i) => {
-		return <li key= { planetID }><Link to={ starID + "/planets/" + planetID }>{ planetNames[i] }</Link></li>;
+		return (
+			<li key= { planetID }>
+				<Link className={ styleClasses.PlanetLink } to={ starID + "/planets/" + planetID }>{ planetNames[i] }</Link>
+			</li>
+		);
 	});
 
 	let display = (
 		<div>
 			<h2>{ name }</h2>
-			<p><strong>Diameter (Solar radii): </strong>{ diameter }</p>
-			<p><strong>Colour: </strong>{ colour }</p>
-			<p><strong>Luminosity (Solar luminosity): </strong>{ luminosity }</p>
+			
+			<div className={ styleClasses.DataList }>
+				<ListGroup>
+					<ListGroup.Item><strong>Diameter (Solar radii): </strong>{ diameter }</ListGroup.Item>
+					<ListGroup.Item><strong>Colour: </strong>{ colour }</ListGroup.Item>
+					<ListGroup.Item><strong>Luminosity (Solar luminosity): </strong>{ luminosity }</ListGroup.Item>
 
-			<h3>Planets</h3>
-			{ planetNames.length > 0 ? <ul>{ planetList }</ul> : <p>None</p> }
-			<Link to={ starID + "/planets/new" }>Create Planet</Link>
+					<ListGroup.Item>
+						<h4>Planets</h4>
+						{ planetNames.length > 0 ? <ul className={ styleClasses.PlanetList }>{ planetList }</ul> : <p>None</p> }
+					</ListGroup.Item>
+				</ListGroup>
+			</div>
 
-			<Link to={ starID + "/edit" }>Edit</Link>
-			<button onClick={ deleteHandler }>Delete</button>
+			<Link to={ starID + "/planets/new" }>
+				<Button className={ styleClasses.ActionButton }>Create Planet</Button>
+			</Link>
+
+			<Link to={ starID + "/edit" }>
+				<Button className={ styleClasses.ActionButton }>Edit</Button>
+			</Link>
+			
+			<Button className={ styleClasses.ActionButton } onClick={ deleteHandler }>Delete</Button>
 		</div>
 	);
 
 	if (loading) {
-		display = <p>Loading planet data...</p>;
+		display = <p>Loading star data...</p>;
 	}
 
 	if (error) {
 		display = (
-			<div>
-				<p>An error occured. Please try again.</p>
-				<p>Error: { error }</p>
-			</div>
+			<Alert variant="danger">
+				{ error }
+			</Alert>
 		);
 	}
 	
@@ -101,8 +120,9 @@ export default (props: IStarDataProps) => {
 		<div>
 			{ display }
 			
-			<br />
-			<Link to="/stars">Return</Link>
+			<Link to="/stars">
+				<Button className={ styleClasses.ActionButton }>Return</Button>
+			</Link>
 		</div>
 	);
 };

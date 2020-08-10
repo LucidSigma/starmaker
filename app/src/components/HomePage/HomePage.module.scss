@@ -1,0 +1,31 @@
+@import "../../variables.scss";
+
+.Header {
+	text-decoration: underline;
+}
+
+.Subtitle {
+	margin-bottom: 40px;
+}
+
+.Button {
+	background-color: $primary-colour;
+	border-color: white;
+	border-radius: 10px;
+	padding: 10px 20px;
+	transition: 0.3s;
+
+	&:hover {
+		background-color: lighten($primary-colour, 10%);
+		border-color: white;
+		transition: 0.3s;
+	}
+
+	.Link {
+		color: white;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}

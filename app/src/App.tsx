@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import StarMaker from "./components/StarMaker/StarMaker";
 
-import "./App.css";
+import "./App.scss";
 
 export type AppProps = { };
 

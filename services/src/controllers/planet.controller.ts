@@ -45,6 +45,7 @@ router.get("/:planet_id", async (request, response) => {
 router.put("/:planet_id", async (request, response) => {
 	try {
 		const planet = await Planet.findById(request.params.planet_id);
+		const star = await Star.findOne({ name: planet.starName, });
 		const oldPlanetName = `${planet.name}`;
 
 		planet.name = request.body.name;
@@ -52,9 +53,8 @@ router.put("/:planet_id", async (request, response) => {
 		planet.diameter = request.body.diameter;
 		planet.distanceFromStar = request.body.distanceFromStar;
 
-		const star = await Star.findOne({ name: planet.starName, });
 		star.planet_names[star.planet_names.indexOf(oldPlanetName)] = planet.name;
-		star.markModified("planets");
+		star.markModified("planet_names");
 
 		await planet.save();
 		await star.save();

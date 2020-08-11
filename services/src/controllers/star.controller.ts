@@ -52,7 +52,6 @@ router.put("/:id", async (request, response) => {
 		const planets = await Planet.find({
 			starName: star.name,
 		});
-		const oldStarName = `${star.name}`;
 
 		star.name = request.body.name;
 		star.diameter = request.body.diameter;
@@ -60,7 +59,7 @@ router.put("/:id", async (request, response) => {
 		star.luminosity = request.body.luminosity;
 		
 		for (const planet of planets) {
-			planet.starName = oldStarName;
+			planet.starName = star.name;
 			planet.markModified("starName");
 
 			await planet.save();

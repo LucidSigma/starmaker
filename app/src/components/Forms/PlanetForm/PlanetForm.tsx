@@ -40,7 +40,7 @@ export default (props: PlanetFormProps) => {
 			<Row>
 				<Col>
 					<Form.Group>
-						<Form.Label>Diameter (in Earth radii): </Form.Label>
+						<Form.Label>Diameter (in Earth diameters): </Form.Label>
 						<Form.Control type="number" step="0.1" value={ props.diameter } onChange={ props.onChangeDiameter } />
 					</Form.Group>
 				</Col>

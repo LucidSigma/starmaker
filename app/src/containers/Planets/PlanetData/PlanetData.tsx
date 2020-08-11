@@ -78,7 +78,7 @@ export default (props: IPlanetDataProps) => {
 				</ListGroup.Item>
 
 				<ListGroup.Item><strong>Number of moons: </strong>{ moonCount }</ListGroup.Item>
-				<ListGroup.Item><strong>Diameter (in Earth radii): </strong>{ diameter }</ListGroup.Item>
+				<ListGroup.Item><strong>Diameter (in Earth diameters): </strong>{ diameter }</ListGroup.Item>
 				<ListGroup.Item><strong>Distance from star (in AU): </strong>{ distanceFromStar }</ListGroup.Item>
 			</ListGroup>
 		</div>

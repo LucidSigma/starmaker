@@ -83,7 +83,7 @@ export default (props: IStarDataProps) => {
 			
 			<div className={ styleClasses.DataList }>
 				<ListGroup>
-					<ListGroup.Item><strong>Diameter (Solar radii): </strong>{ diameter }</ListGroup.Item>
+					<ListGroup.Item><strong>Diameter (Solar diameters): </strong>{ diameter }</ListGroup.Item>
 					<ListGroup.Item><strong>Colour: </strong>{ colour }</ListGroup.Item>
 					<ListGroup.Item><strong>Luminosity (Solar luminosity): </strong>{ luminosity }</ListGroup.Item>
 

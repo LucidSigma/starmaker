@@ -33,7 +33,7 @@ export default (props: StarFormProps) => {
 
 				<Col>
 					<Form.Group>
-						<Form.Label>Diameter (in Solar radii): </Form.Label>
+						<Form.Label>Diameter (in Solar diameters): </Form.Label>
 						<Form.Control type="number" step="0.1" value={ props.diameter } onChange={ props.onChangeDiameter } />
 					</Form.Group>
 				</Col>

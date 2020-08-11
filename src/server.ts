@@ -18,7 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(methodOverride());
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 // DATABASE CONFIGURATION
 const databaseURI = process.env.MONGODB_ATLAS_URI || "mongodb://localhost:27017/starmaker";
@@ -44,7 +44,7 @@ app.use("/stars/", starController);
 app.use("/stars/:star_id/planets/", planetController);
 
 app.get("*", (_request, response) => {
-	response.sendFile(path.join(__dirname, "client", "build", "index.html"));
+	response.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 });
 
 // SERVER CONFIGURATION

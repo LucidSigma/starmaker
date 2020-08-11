@@ -19,6 +19,7 @@ $hovered-link-weight: 700;
 		color: white;
 		font-weight: $default-link-weight;
 		text-decoration: none;
+		padding: 0 10px;
 
 		&:hover {
 			font-weight: $hovered-link-weight;

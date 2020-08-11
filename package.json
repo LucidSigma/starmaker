@@ -7,28 +7,27 @@
   "scripts": {
     "start": "ts-node src/server.ts",
     "build": "tsc --project ./src",
+    "postinstll": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "author": "Matt Schafer",
   "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "method-override": "^3.0.0",
-    "mongoose": "^5.9.27",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
-  },
-  "devDependencies": {
     "@types/cors": "^2.8.7",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.7",
     "@types/method-override": "0.0.31",
     "@types/mongoose": "^5.7.34",
     "@types/node": "^14.0.27",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.9.27",
     "ts-lint": "^4.5.1",
-    "ts-loader": "^8.0.2"
+    "ts-loader": "^8.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }

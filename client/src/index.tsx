@@ -10,6 +10,8 @@ import "./index.scss";
 const axiosBaseURL = process.env.AXIOS_BASE_URL || "http://localhost:8080";
 axios.defaults.baseURL = axiosBaseURL;
 
+console.log(axiosBaseURL);
+
 ReactDOM.render(
 	<React.StrictMode>
 		<App />

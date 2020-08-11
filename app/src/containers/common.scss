@@ -1,0 +1,15 @@
+@import "../../../variables.scss";
+
+.ActionButton {
+	margin: 10px;
+	padding: 10px 20px;
+
+	background-color: $primary-colour;
+	border-color: white;
+	border-radius: 10px;
+
+	&:hover {
+		background-color: lighten($primary-colour, 30%);
+		border-color: white;
+	}
+}

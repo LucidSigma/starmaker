@@ -1,0 +1,11 @@
+@import "../../../variables.scss";
+@import "../../common.scss";
+
+.StarLink {
+	color: $primary-colour;
+
+	&:hover {
+		color: lighten($primary-colour, 40%);
+		text-decoration: underline;
+	}
+}

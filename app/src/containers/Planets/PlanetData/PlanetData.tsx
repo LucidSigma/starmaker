@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Alert, Button, ListGroup } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
+
+import styleClasses from "./PlanetData.module.scss";
 
 interface MatchParams {
 	star_id: string,
@@ -66,11 +69,16 @@ export default (props: IPlanetDataProps) => {
 
 	let display = (
 		<div>
-			<h2>{ name }</h2>
-			<h3>Orbits { starName }</h3>
-			<p><strong>Number of moons: </strong>{ moonCount }</p>
-			<p><strong>Diameter (in Earth radii): </strong>{ diameter }</p>
-			<p><strong>Distance from star (in AU): </strong>{ distanceFromStar }</p>
+			<ListGroup>
+				<ListGroup.Item>
+					<h2>{ name }</h2>
+					<h5>Orbits <Link className={ styleClasses.StarLink } to={ "/stars/" + starID }>{ starName }</Link></h5>
+				</ListGroup.Item>
+
+				<ListGroup.Item><strong>Number of moons: </strong>{ moonCount }</ListGroup.Item>
+				<ListGroup.Item><strong>Diameter (in Earth radii): </strong>{ diameter }</ListGroup.Item>
+				<ListGroup.Item><strong>Distance from star (in AU): </strong>{ distanceFromStar }</ListGroup.Item>
+			</ListGroup>
 		</div>
 	);
 
@@ -80,10 +88,9 @@ export default (props: IPlanetDataProps) => {
 
 	if (error) {
 		display = (
-			<div>
-				<p>An error occured. Please try again.</p>
-				<p>Error: { error }</p>
-			</div>
+			<Alert variant="danger">
+				{ error }
+			</Alert>
 		);
 	}
 
@@ -91,10 +98,17 @@ export default (props: IPlanetDataProps) => {
 		<div>
 			{ display }
 
-			<Link to={ planetID + "/edit" }>Edit</Link>
-			<button onClick={ deleteHandler }>Delete</button>
-			<br />
-			<Link to={ "/stars/" + starID }>Return</Link>
+			<div>
+				<Link to={ planetID + "/edit" }>
+					<Button className={ styleClasses.ActionButton }>Edit</Button>
+				</Link>
+
+				<Button className={ styleClasses.ActionButton } onClick={ deleteHandler }>Delete</Button>
+			</div>
+
+			<Link to={ "/stars/" + starID }>
+				<Button className={ styleClasses.ActionButton }>Return</Button>
+			</Link>
 		</div>
 	);
 };

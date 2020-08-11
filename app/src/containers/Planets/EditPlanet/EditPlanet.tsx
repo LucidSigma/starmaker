@@ -126,7 +126,7 @@ export default (props: IEditPlanetProps) => {
 			{ errorMessage }
 			{ display }
 
-			<Link to={ "/stars/" + starID + "/planets" + planetID }>Return</Link>
+			<Link to={ "/stars/" + starID + "/planets/" + planetID }>Return</Link>
 		</div>
 	);
 };

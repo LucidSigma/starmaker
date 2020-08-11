@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Alert, Button, ListGroup } from "react-bootstrap"
+import { Button, ListGroup } from "react-bootstrap"
 import { Link } from "react-router-dom";
 
 import ErrorBox from "../../../components/ErrorBox/ErrorBox";

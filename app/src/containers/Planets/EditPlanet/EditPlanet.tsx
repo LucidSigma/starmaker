@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Alert, Button } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 import PlanetForm from "../../../components/Forms/PlanetForm/PlanetForm";
+
+import styleClasses from "../../../components/Forms/Forms.module.scss";
 
 interface MatchParams {
 	star_id: string,
@@ -113,10 +116,9 @@ export default (props: IEditPlanetProps) => {
 	}
 
 	const errorMessage = error ? (
-		<div>
-			<p>An error occured. Please try again.</p>
-			<p>Error: { error }</p>
-		</div>
+		<Alert variant="danger">
+			{ error }
+		</Alert>
 	) : null;
 
 	return (
@@ -126,7 +128,9 @@ export default (props: IEditPlanetProps) => {
 			{ errorMessage }
 			{ display }
 
-			<Link to={ "/stars/" + starID + "/planets/" + planetID }>Return</Link>
+			<Link to={ "/stars/" + starID + "/planets/" + planetID }>
+				<Button className={ styleClasses.ReturnButton }>Return</Button>
+			</Link>
 		</div>
 	);
 };

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
 
+import ErrorBox from "../../../components/ErrorBox/ErrorBox";
 import PlanetForm from "../../../components/Forms/PlanetForm/PlanetForm";
 
 import styleClasses from "../../../components/Forms/Forms.module.scss";
@@ -115,11 +116,7 @@ export default (props: IEditPlanetProps) => {
 		display = <p>Submitting updated planet data...</p>
 	}
 
-	const errorMessage = error ? (
-		<Alert variant="danger">
-			{ error }
-		</Alert>
-	) : null;
+	const errorMessage = error ? <ErrorBox message={ error } /> : null;
 
 	return (
 		<div>

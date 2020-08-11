@@ -73,7 +73,8 @@ router.delete("/:planet_id", async (request, response) => {
 		const star = await Star.findOne({ name: planet.starName, });
 		star.planet_ids = star.planet_ids.filter((planetID) => planetID !== request.params.planet_id);
 		star.planet_names = star.planet_names.filter((planetName) => planetName !== planet.name);
-		star.markModified("planets");
+		star.markModified("planet_ids");
+		star.markModified("planet_names");
 
 		await star.save();
 		await planet.deleteOne();

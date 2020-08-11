@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, ListGroup } from "react-bootstrap"; 
 import { Link, RouteComponentProps } from "react-router-dom";
 
+import ErrorBox from "../../../components/ErrorBox/ErrorBox";
+
 import styleClasses from "./StarData.module.scss";
 
 interface MatchParams {
@@ -109,11 +111,7 @@ export default (props: IStarDataProps) => {
 	}
 
 	if (error) {
-		display = (
-			<Alert variant="danger">
-				{ error }
-			</Alert>
-		);
+		display = <ErrorBox message={ error } />;
 	}
 	
 	return (

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, ListGroup } from "react-bootstrap"
 import { Link } from "react-router-dom";
 
+import ErrorBox from "../../../components/ErrorBox/ErrorBox";
 import Star from "../../../data/star";
 
 import styleClasses from "./StarList.module.scss";
@@ -60,15 +61,12 @@ export default (_props: StarListProps) => {
 		display = <p>Loading stars...</p>;
 	}
 
-	const errorMessage = error ? (
-		<Alert variant="danger">
-			{ error }
-		</Alert>
-	) : null;
+	if (error) {
+		display = <ErrorBox message={ error } />;
+	}
 
 	return (
 		<div>
-			{ errorMessage }
 			{ display }
 			
 			<Link className={ styleClasses.ButtonLink } to="/stars/new">

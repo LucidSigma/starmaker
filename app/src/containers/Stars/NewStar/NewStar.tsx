@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
 
+import ErrorBox from "../../../components/ErrorBox/ErrorBox";
 import StarForm from "../../../components/Forms/StarForm/StarForm";
 
 import Colours, { Colour } from "../../../data/star_colours";
@@ -82,11 +83,7 @@ export default (props: INewStarProps) => {
 		display = <p>Submitting new star...</p>
 	}
 
-	const errorMessage = error ? (
-		<Alert variant="danger">
-			{ error }
-		</Alert>
-	) : null;
+	const errorMessage = error ? <ErrorBox message={ error } /> : null;
 
 	return (
 		<div>
